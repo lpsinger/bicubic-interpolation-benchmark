@@ -79,10 +79,10 @@ if __name__ == '__main__':
     a = np.random.uniform(size=(406, 406, 4, 4))
     fx = np.ones(2)
     x0 = np.asarray([0.0, 0.0])
-    s, t = np.random.uniform(0.0, 400.0, size=(2, 10000000))
+    s, t = np.random.uniform(0.0, 400.0, size=(2, 1000000))
     result = bicubic_interp_eval(a, 1.0, 1.0, 0.0, 0.0, s, t)
 
-    s, t = np.random.uniform(0.0, 400.0, size=(2, 10000000))
+    s, t = np.random.uniform(0.0, 400.0, size=(2, 1000000))
 
     start = perf_counter()
     result = bicubic_interp_eval(a, 1.0, 1.0, 0.0, 0.0, s, t)

@@ -163,7 +163,7 @@ double bicubic_interp_eval(const bicubic_interp *interp, double s, double t)
 
 int main(int argc, char **argv)
 {
-    static const int n = 10000000;
+    static const int n = 1000000;
     double data[400][400];
     double (*x)[2] = malloc(sizeof(*x) * n);
     double *y = malloc(sizeof(*y) * n);
