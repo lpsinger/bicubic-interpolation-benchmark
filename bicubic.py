@@ -16,7 +16,7 @@ def clip(x, a, b):
 @njit('(f8[:, :, :, ::1], f8, f8, f8, f8, f8[:], f8[:])', fastmath=True)
 def bicubic_interp_eval(a, fs, ft, s0, t0, s, t):
     s = clip(s * fs + s0, 0, a.shape[0] - 1)
-    t = clip(t * ft + t0, 0, a.shape[0] - 1)
+    t = clip(t * ft + t0, 0, a.shape[1] - 1)
     si = np.floor(s)
     ti = np.floor(t)
     s -= si
