@@ -12,7 +12,7 @@ py.txt: bicubic.py
 bench.txt: c.txt py.txt
 	echo -n 'C  ' > $@
 	cat c.txt >> $@
-	echo -n 'Py ' > $@
+	echo -n 'Py ' >> $@
 	cat py.txt >> $@
 
 clean:
