@@ -20,9 +20,9 @@ using namespace std::chrono;
 
 int main(int argc, char **argv)
 {
-    static const int n = 1000000;
+    static const int n = 100000;
 
-    auto a = eval(random::rand<double>({406, 406, 4, 4}));
+    auto a = eval(random::rand<double>({406 * 406, 4, 4}));
 
     xtensor_fixed<double, xshape<2>> fx
         {1.0, 1.0};
@@ -35,30 +35,23 @@ int main(int argc, char **argv)
 
     for (int run = 0; run < 2; run ++)
     {
-        xarray<double> x = eval(random::rand<double>({n, 2}, 0, 400));
+        xtensor_fixed<double, xshape<n, 2>> x = eval(random::rand<double>({n, 2}, 0, 400));
         double y;
 
         auto t1 = steady_clock::now();
 
-        auto x_clipped = clip(fma(x, fx, x0), 0, xlength - 1);
-        auto ix_double = floor(x_clipped);
-        xarray<double> st = x_clipped - ix_double;
-        xarray<int> ix = eval(cast<int>(ix_double));
+        auto&& x_clipped = eval(clip(fma(x, fx, x0), 0, xlength - 1));
+        auto&& ix_double = eval(floor(x_clipped));
+        auto&& st = eval(x_clipped - ix_double);
+        auto&& ix = eval(cast<int>(fma(406.0, col(ix_double, 0), col(ix_double, 1))));
 
-        auto ix_iter = axis_begin(ix, 0);
-        auto ix_end = axis_end(ix, 0);
-        auto xx_iter = axis_begin(st, 0);
-        auto xx_end = axis_begin(st, 0);
-        while (ix_iter != ix_end)
+        for (int i = 0; i < n; i ++)
         {
-            auto ii = *ix_iter++;
-            auto xx = *xx_iter++;
-            auto s = xx(0);
-            auto t = xx(1);
-            auto aa = view(a, ii(0), ii(1), all(), all());
-            auto bb = fma(t, fma(t, fma(t, row(aa, 0), row(aa, 1)), row(aa, 2)), row(aa, 3));
-            auto cc = fma(s, fma(s, fma(s, bb(0), bb(1)), bb(2)), bb(3));
-            y = cc;
+            auto s = st(i, 0);
+            auto t = st(i, 1);
+            auto&& aa = view(a, ix(i), all(), all());
+            auto&& bb = fma(t, fma(t, fma(t, row(aa, 0), row(aa, 1)), row(aa, 2)), row(aa, 3));
+            y = fma(s, fma(s, fma(s, bb(0), bb(1)), bb(2)), bb(3));
         }
 
         auto t2 = steady_clock::now();

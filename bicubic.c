@@ -84,7 +84,7 @@ bicubic_interp *bicubic_interp_init(
     bicubic_interp *interp;
     const int slength = ns + 6;
     const int tlength = nt + 6;
-    interp = aligned_alloc(alignof(*interp), sizeof(*interp) + slength * tlength * sizeof(*interp->a));
+    interp = aligned_alloc(alignof(bicubic_interp), sizeof(*interp) + slength * tlength * sizeof(*interp->a));
     if (LIKELY(interp))
     {
         interp->fs = 1 / ds;
@@ -163,7 +163,7 @@ double bicubic_interp_eval(const bicubic_interp *interp, double s, double t)
 
 int main(int argc, char **argv)
 {
-    static const int n = 1000000;
+    static const int n = 100000;
     double data[400][400];
     double (*x)[2] = malloc(sizeof(*x) * n);
     double *y = malloc(sizeof(*y) * n);

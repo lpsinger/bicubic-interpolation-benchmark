@@ -24,10 +24,10 @@ if __name__ == '__main__':
     a = np.random.uniform(size=(406, 406, 4, 4))
     fx = np.asarray([1.0, 1.0])
     x0 = np.asarray([3.0, 3.0])
-    x = np.random.uniform(0.0, 400.0, size=(1000000, 2))
+    x = np.random.uniform(0.0, 400.0, size=(100000, 2))
     result = bicubic_interp_eval(a, fx, x0, x)
 
-    x = np.random.uniform(0.0, 400.0, size=(1000000, 2))
+    x = np.random.uniform(0.0, 400.0, size=(100000, 2))
 
     start = perf_counter()
     result = bicubic_interp_eval(a, fx, x0, x)
