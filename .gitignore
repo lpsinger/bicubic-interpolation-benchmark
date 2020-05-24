@@ -1,5 +1,7 @@
 bench.txt
 c.txt
+cxx.txt
 py.txt
 bicubic
+bicubic_cxx
 *.dSYM
