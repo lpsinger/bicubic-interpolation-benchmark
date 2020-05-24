@@ -3,7 +3,7 @@ SHELL = bash
 all: bench.txt
 
 bicubic: bicubic.c
-	$(CC) -std=gnu11 -Ofast -g -march=native $< $(shell pkg-config --cflags --libs gsl) -o $@
+	$(CC) -std=gnu11 -Ofast -march=native $< $(shell pkg-config --cflags --libs gsl) -o $@
 
 bicubic_cxx: bicubic.cpp
 	$(CXX) -Ofast -march=native -Ixtl/include -Ixtensor/include $< -o $@
