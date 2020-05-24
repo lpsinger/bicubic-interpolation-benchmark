@@ -15,6 +15,8 @@
 #include <xtensor/xaxis_slice_iterator.hpp>
 
 using namespace xt;
+using namespace std;
+using namespace std::chrono;
 
 int main(int argc, char **argv)
 {
@@ -36,7 +38,7 @@ int main(int argc, char **argv)
         xarray<double> x = eval(random::rand<double>({n, 2}, 0, 400));
         double y;
 
-        auto t1 = std::chrono::steady_clock::now();
+        auto t1 = steady_clock::now();
 
         auto x_clipped = clip(fma(x, fx, x0), 0, xlength - 1);
         auto ix_double = floor(x_clipped);
@@ -59,9 +61,9 @@ int main(int argc, char **argv)
             y = cc;
         }
 
-        auto t2 = std::chrono::steady_clock::now();
-        auto time_span = std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1);
-        std::cout << time_span.count() << std::endl;
+        auto t2 = steady_clock::now();
+        auto time_span = duration_cast<duration<double> >(t2 - t1);
+        cout << time_span.count() << endl;
     }
 
     return 0;
